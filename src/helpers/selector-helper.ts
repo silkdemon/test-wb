@@ -1,5 +1,5 @@
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
-export const getByTestId = async (page: Page, element: string) => {
-  return page.goto(url);
+export const getByTestId = (page: Page, element: string): Locator => {
+  return page.getByTestId(element);
 };

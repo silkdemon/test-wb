@@ -11,4 +11,8 @@ export abstract class BasePage {
   public async visit() {
     await this.page.goto(this.url);
   }
+
+  public getTitle() {
+    return this.page.getByTestId('title');
+  }
 }

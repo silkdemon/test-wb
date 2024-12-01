@@ -1,15 +1,18 @@
 {
   "compilerOptions": {
-    "target": "ES6", // or ESNext
-    "module": "commonjs",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "target": "ESNext",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "noEmit": true // Prevent emitting files, useful for linting only
+    "allowJs": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "src/**/*",  "eslint.config.mjs", "playwright.config.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

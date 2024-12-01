@@ -3,20 +3,24 @@ import { getByTestId } from '../helpers/selector-helper';
 import { getElementText } from '../helpers/utils';
 import { BasePage } from './base-page';
 
+const urlPath = '/inventory.html';
+
 export class MainPage extends BasePage {
+  public urlPath;
   private inventoryItems: Locator;
   private itemDescription: Locator;
   private itemPrice: Locator;
 
   constructor(page: Page) {
-    super(page, '');
+    super(page, urlPath);
+    this.urlPath = urlPath;
     this.inventoryItems = getByTestId(page, 'inventory-item');
     this.itemDescription = getByTestId(page, 'inventory-item-desc');
     this.itemPrice = getByTestId(page, 'inventory-item-price');
   }
 
   private getItemTitleLocator(index: number) {
-    return this.page.locator(`[data-test-id="item-${index}"]`);
+    return this.page.locator(`[data-test="item-${index}-title-link"]`);
   }
 
   /*   На всех кнопках добавить в корзину одинаковый паттерн построения локаторов: 
@@ -26,35 +30,30 @@ export class MainPage extends BasePage {
     let itemText = await getElementText(this.getItemTitleLocator(index));
     itemText = itemText.toLowerCase();
 
-    // Split the text by spaces and join with hyphens
     const locatorForCartButtonElement = itemText.split(' ').join('-');
     return this.page.locator(
-      `[data-test-id="add-to-${locatorForCartButtonElement}"]`
+      `[data-test="add-to-cart-${locatorForCartButtonElement}"]`
     );
   }
 
   public async getItem(index: number) {
-    let title: string;
-    let description: string;
-    let price: string;
-
     const count = await this.inventoryItems.count();
 
-    for (let i = 0; i < count; i++) {
-      const inventoryItem = this.inventoryItems.nth(i);
-      title = await getElementText(this.getItemTitleLocator(index));
-
-      const descriptionLocator = inventoryItem.locator(this.itemDescription);
-      description = await getElementText(descriptionLocator);
-
-      const priceLocator = inventoryItem.locator(this.itemPrice);
-      price = await getElementText(priceLocator);
+    if (index < 0 || index >= count) {
+      throw new Error(
+        `Index: ${index} is out of bounds. Total items: ${count}`
+      );
     }
-
+    const inventoryItem = this.inventoryItems.nth(index);
+    const title = await getElementText(this.getItemTitleLocator(index));
+    const descriptionLocator = inventoryItem.locator(this.itemDescription);
+    const description = await getElementText(descriptionLocator);
+    const priceLocator = inventoryItem.locator(this.itemPrice);
+    const price = await getElementText(priceLocator);
     return { title, description, price };
   }
 
   public async addToCart(index: number) {
-    (await this.getAddToCartButtonLocator(index)).click();
+    await (await this.getAddToCartButtonLocator(index)).click();
   }
 }

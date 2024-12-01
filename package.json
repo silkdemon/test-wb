@@ -6,7 +6,7 @@
   "scripts": {
     "inst": "npm ci",
     "test:ui": "npx playwright test",
-    "test:i": "playwright test --ui",
+    "test:interactive": "playwright test --ui",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },

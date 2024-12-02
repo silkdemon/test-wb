@@ -1,11 +1,11 @@
 import { Locator, Page } from '@playwright/test';
 import { getByTestId } from '../helpers/selector-helper';
 import { getElementText } from '../helpers/utils';
-import { BasePage } from './base-page';
+import { HeaderComponent } from './header-component';
 
 const urlPath = '/inventory.html';
 
-export class MainPage extends BasePage {
+export class MainPage extends HeaderComponent {
   public urlPath;
   private inventoryItems: Locator;
   private itemDescription: Locator;

@@ -10,15 +10,15 @@ export abstract class BasePage {
     protected urlPath: string
   ) {}
 
+  public getBasicURL() {
+    return `${basicURL}${this.urlPath}`;
+  }
+
   public async visit() {
-    await this.page.goto(`${basicURL}${this.urlPath}`);
+    await this.page.goto(this.getBasicURL());
   }
 
   public getTitle() {
     return this.page.getByTestId('title');
-  }
-
-  public getBasicURL() {
-    return `${basicURL}${this.urlPath}`;
   }
 }

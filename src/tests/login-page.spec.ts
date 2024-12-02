@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { shouldSeeText } from '../helpers/utils';
+import { shouldSeeText, shouldSeeURL } from '../helpers/utils';
 import { LoginPage } from '../page-object/login-page';
 import { MainPage } from '../page-object/main-page';
 
@@ -11,8 +11,6 @@ test('succes login', async ({ page }) => {
   await loginPage.visit();
   await loginPage.login(userName, password);
 
-  console.log(mainPage.getBasicURL());
-
-  // shouldSeeURL(page, mainPage);
+  shouldSeeURL(page, mainPage.getBasicURL());
   await shouldSeeText(mainPage.getTitle(), 'Products');
 });

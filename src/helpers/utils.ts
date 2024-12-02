@@ -10,6 +10,16 @@ export const shouldSeeURL = (page: Page, expectedUrl: string) => {
   expect(currentUrl).toBe(expectedUrl);
 };
 
-export const shouldSeeText = async (element: Locator, expectedText: string) => {
+export const shouldSeeText = async (
+  element: Locator,
+  expectedText: string | object
+) => {
   expect(await getElementText(element)).toBe(expectedText);
+};
+
+export const assertEquality = (
+  actualValue: string | object,
+  expectedValue: string | object
+) => {
+  expect(actualValue).toEqual(expectedValue);
 };

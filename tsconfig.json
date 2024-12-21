@@ -11,7 +11,7 @@
   },
   "include": [
     "src/**/*",  "eslint.config.mjs", "playwright.config.ts"
-  ],
+, "src/tests/.spec.ts"  ],
   "exclude": [
     "node_modules"
   ]
